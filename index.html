@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="./index.html">Home</a>
+            <a href="./accounting.html">Accounting page</a>
+        </nav>
+    </header>
+<div class="addEmpButton">
+    <button onclick="showForm()">Add New Employee Form</button>
+</div>
+    <!-- Your form elements go here -->
+    </form>
+    <main id="employeeList">
+        <div id="formDiv">
+            <form id="mainForm" style="display: none;">
+                <fieldset>
+                    <legend>New Employee Form</legend>
+                    <label for="labelName">Full name</label>
+                    <input type="text" name="fullNameInput" placeholder="Insert Full Name" required>
+                    <br>
+                    <br>
+                    <br>
+                    <label for="labelDepartment">Department</label>
+                    <select name="selectDepartment" id="department" required>
+                        <option>Select the department</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Development">Development</option>
+                        <option value="Finance">Finance</option>
+                    </select>
+                    <br>
+                    <br>
+                    <br>
+                    <label for="labelLevel">Level</label>
+                    <select name="selectLevel" id="Level" required>
+                        <option>Select the Level</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Mid-Senior">Mid-Senior</option>
+                        <option value="Senior">Senior</option>
+                    </select>
+                    <br>
+                    <br>
+                    <br>
+                    <label for="imgUrl">Image</label>
+                    <input type="text" name="imgUrl" id="imgUrl" placeholder="Insert The Image URL">
+                    <br>
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" style="font-family: cursive;">
+                </fieldset>
+            </form>
+
+            <h2>Administration Department</h2>
+            <div id="administrationDep" class="sectionStyle">
+            </div>
+            <hr style="width: 100%;">
+            <h2>Development Department</h2>
+            <div id="developmentDep" class="sectionStyle">
+            </div>
+            <hr style="width: 100%;">
+            <h2>Marketing Department</h2>
+            <div id="marketingDep" class="sectionStyle">
+            </div>
+            <hr style="width: 100%;">
+            <h2>Finance Department</h2>
+            <div id="financeDep" class="sectionStyle">
+            </div>
+            <hr style="width: 100%; color: #3A4D39; height: 3px;">
+    </main>
+
+
+    <footer>
+        <center>
+            <div>
+                <!-- Social media links -->
+                <a href="https://facebook.com">Facebook</a>
+                <a href="https://twitter.com">Twitter</a>
+                <a href="https://instagram.com">Instagram</a>
+                <a href="https://linkedin.com">LinkedIn</a>
+            </div>
+            <div>
+                <p style="font-size: 20px;"> Copyright © 2024 All Rights Reserved.</p>
+            </div>
+        </center>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
