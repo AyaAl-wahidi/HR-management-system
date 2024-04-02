@@ -3,25 +3,6 @@ body {
   margin: 0px;
   padding: 0%;
   background-color: #ECE3CE;
-  /* padding: 10px; */
-}
-button{
-  font-family: cursive;
-    color: white;
-    border: 2px;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 0 10px #3A4D39;
-}
-/* This button for the open Employee form */
-.addEmpButton{ 
-  padding-top: 10px;
-  place-items: center;
-  display: grid;
-}
-#mainForm{
-  padding-left: 500px;
-  padding-right: 500px;
 }
 .navbar {
   color: #000000;
@@ -41,9 +22,17 @@ button{
   background-color: #739072;
   color: black;
 }
+#mainForm{
+  width: 100%;
+  padding-left: 20;
+}
 fieldset {
   background-color: #739072;
   border-radius: 10px;
+  align-items: center;
+  /* This to make the form by row in horizontal way */
+  display: flex;
+  flex-direction: row;
 }
 legend {
   background-color: #3A4D39;
@@ -110,11 +99,25 @@ footer {
  font-family: cursive;
  font-weight: bold;
 }
-select, input, button {
+select, input {
   padding: 8px;
   margin: 4px;
   box-sizing: border-box;
   color: #3A4D39;
   border-radius: 7px;
+  background-color: #ECE3CE;
 }
-
+button{
+  font-family: cursive;
+    border: 2px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 7px;
+    box-shadow: 0 0 10px #3A4D39;
+}
+/* This button for the open Employee form */
+.addEmpButton{ 
+  padding-top: 10px;
+  place-items: center;
+  display: grid;
+}

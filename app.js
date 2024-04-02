@@ -18,7 +18,7 @@ function salaryGenerator(level) {
     let netSalary = 0;
     let taxPercent = 7.5;
     if (level === "Senior") {
-        salary = Math.floor(Math.random() * (2000 - 1500) + 1500); // (Math.random()* (Max - Min + 1) + min)
+        salary = Math.floor(Math.random() * (2000 - 1500) + 1500); // (Math.random()* (Max - Min) + min)
         netSalary = salary - (salary * (taxPercent / 100));
     } else if (level === "Mid-Senior") {
         salary = Math.floor(Math.random() * (1500 - 1000) + 1000);
@@ -49,20 +49,21 @@ function addButtonListener(event) {
 
     let newEmp = new Employee(generateUniqueID(), capitalizeFirstLetter(fullName), selectDepartment, level, imgUrl, salaryGenerator(level))
     newEmp.render();
+
     // mainForm.reset();
 }
 
-//This function to make the Name first litter capital
+//This function to make the input Name with first litter capital
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 Employee.prototype.render = function () {
 
-    let administrationDep = document.getElementById("administrationDep");
-    let developmentDep = document.getElementById("developmentDep");
-    let marketingDep = document.getElementById("marketingDep");
-    let financeDep = document.getElementById("financeDep");
+    // let Administration = document.getElementById("Administration");
+    // let Marketing = document.getElementById("Development");
+    // let marketingDep = document.getElementById("Marketing");
+    // let Finance = document.getElementById("Finance");
     const employeeCard = document.createElement("div");
     const smallLine = document.createElement('hr');
     employeeCard.classList.add("employee");
@@ -71,23 +72,31 @@ Employee.prototype.render = function () {
     // How to insert the text content to the Employee card by using the innerHTML with tags
     employeeCard.innerHTML = `
     <h2>${this.fullName}</h2>
-    <img src="${this.empImage}" alt="${this.fullName}">
+    <img src="${this.empImage}" alt="${this.fullName}" width="250" height="250">
     <p>ID: ${this.empId}</p>
     <p>Department: ${this.empDep}</p>
     <p>Level: ${this.empLevel}</p>
-    <p>Net-Salary: ${this.empSalary.toFixed(2)}</p>
+    <p>Net-Salary: ${this.empSalary.toFixed(2)}$</p>
     `;
+    
+    // Here we have to ways seperate the departments
+    //(1) without if stetment with choose the id element depends on the name
+    //  and should be the same name in id & the input
+    let section = document.getElementById(this.empDep);
+    section.appendChild(employeeCard);
 
+    //(2) here we used the if stetment for each departement
     // Check the department to know in which div should we added
-    if (this.empDep == "Administration") {
-        administrationDep.append(employeeCard)
-    } else if (this.empDep == "Marketing") {
-        marketingDep.append(employeeCard)
-    } else if (this.empDep == "Development") {
-        developmentDep.append(employeeCard)
-    } else if (this.empDep == "Finance") {
-        financeDep.append(employeeCard)
-    }
+
+    // if (this.empDep == "Administration") {
+    //     administrationDep.append(employeeCard)
+    // } else if (this.empDep == "Marketing") {
+    //     marketingDep.append(employeeCard)
+    // } else if (this.empDep == "Development") {
+    //     developmentDep.append(employeeCard)
+    // } else if (this.empDep == "Finance") {
+    //     financeDep.append(employeeCard)
+    // }
 
     employeeCard.appendChild(smallLine);
 };
@@ -123,7 +132,7 @@ function generateUniqueID() {
 function showForm() {
     const form = document.getElementById('mainForm');
     if (form.style.display === 'none') {
-        form.style.display = 'block'; // Show the form
+        form.style.display = 'flex'; // Show the form
     } else {
         form.style.display = 'none'; // Hide the form
     }
