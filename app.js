@@ -47,10 +47,18 @@ function addButtonListener(event) {
         imgUrl = "https://i.pinimg.com/474x/f1/da/a7/f1daa70c9e3343cebd66ac2342d5be3f.jpg";
     }
 
+    // mainForm.reset();
+
+    //Save the data in local Storage
+    localStorage.setItem("id", generateUniqueID());
+    localStorage.setItem("name", capitalizeFirstLetter(fullName));
+    localStorage.setItem("dep", selectDepartment);
+    localStorage.setItem("level", level);
+    localStorage.setItem("img", imgUrl);
+    localStorage.setItem("salary", salaryGenerator(level).toFixed(2));
+
     let newEmp = new Employee(generateUniqueID(), capitalizeFirstLetter(fullName), selectDepartment, level, imgUrl, salaryGenerator(level))
     newEmp.render();
-
-    // mainForm.reset();
 }
 
 //This function to make the input Name with first litter capital
@@ -60,10 +68,10 @@ function capitalizeFirstLetter(string) {
 
 Employee.prototype.render = function () {
 
-    // let Administration = document.getElementById("Administration");
-    // let Marketing = document.getElementById("Development");
-    // let marketingDep = document.getElementById("Marketing");
-    // let Finance = document.getElementById("Finance");
+    let Administration = document.getElementById("Administration");
+    let Marketing = document.getElementById("Development");
+    let marketingDep = document.getElementById("Marketing");
+    let Finance = document.getElementById("Finance");
     const employeeCard = document.createElement("div");
     const smallLine = document.createElement('hr');
     employeeCard.classList.add("employee");
@@ -78,10 +86,11 @@ Employee.prototype.render = function () {
     <p>Level: ${this.empLevel}</p>
     <p>Net-Salary: ${this.empSalary.toFixed(2)}$</p>
     `;
-    
+
     // Here we have to ways seperate the departments
     //(1) without if stetment with choose the id element depends on the name
     //  and should be the same name in id & the input
+
     let section = document.getElementById(this.empDep);
     section.appendChild(employeeCard);
 
@@ -120,6 +129,17 @@ employee4.render();
 employee5.render();
 employee6.render();
 employee7.render();
+
+//Get the data from local Storage 
+const id = localStorage.getItem("id");
+const namee = localStorage.getItem("name");
+const department = localStorage.getItem("dep");
+const level = localStorage.getItem("level");
+const imgUrl = localStorage.getItem("img");
+const salary = parseFloat(localStorage.getItem("salary"));
+
+let oldEmp = new Employee(id, namee, department, level, imgUrl, salary);
+oldEmp.render();
 
 //Generate a unique ID for each employee
 function generateUniqueID() {
