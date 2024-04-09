@@ -4,32 +4,52 @@
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
+<center>
 <body>
     <header>
         <div class="navbar">
             <a href="./index.html">Home</a>
             <a href="./accounting.html">Accounting page</a>
-          </div>
+        </div>
     </header>
 
     <main>
-
-
+        <h1>Department Information</h1>
+        <table id="departmentTable">
+            <thead style="padding: 20px;">
+                <tr>
+                    <th>Department Name</th>
+                    <th>#OfEmployees</th>
+                    <th>Total Salary</th>
+                    <th>Average</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+            <tfoot id = "tableFooter">
+                <tr>
+                    <td id = "Total">Total</td>
+                    <td id="totalEmployees"></td>
+                    <td id="totalSalary"></td>
+                    <td id="averageSalary"></td>
+                </tr>
+            </tfoot>
+        </table>
     </main>
 
     <footer>
 
-        <div style="font-size: 20px;">
+        <div style="font-size: 20px; align-items: center; ">
             <!-- Social media links -->
             <a href="https://facebook.com">Facebook</a>
             <a href="https://twitter.com">Twitter</a>
             <a href="https://instagram.com">Instagram</a>
             <a href="https://linkedin.com">LinkedIn</a>
-        </div>
-        <div>
             <p style="font-size: 20px;"> Copyright © 2024 All Rights Reserved.</p>
         </div>
     </footer>
+    <script src="accounting.js"></script>
 </body>
+</center>
 </html>

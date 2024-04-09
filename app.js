@@ -1,5 +1,9 @@
 'use strict'
 
+let allEmployee = [];
+let objArr = [];
+
+
 //Create a constructor to generate an employee Object
 function Employee(empId, empName, empDep, empLevel, empImage) {
     this.empId = empId;
@@ -8,70 +12,11 @@ function Employee(empId, empName, empDep, empLevel, empImage) {
     this.empLevel = empLevel;
     this.empImage = empImage;
     this.empSalary = salaryGenerator(empLevel);
-}
-
-// Create a prototype function for calculating the salary using the provided table by generating a random number between the
-// minimum and maximum salary for each level
-//calculating the random salary you should calculate the net salary where the tax percent is 7.5.
-function salaryGenerator(level) {
-    let salary = 0;
-    let netSalary = 0;
-    let taxPercent = 7.5;
-    if (level === "Senior") {
-        salary = Math.floor(Math.random() * (2000 - 1500) + 1500); // (Math.random()* (Max - Min) + min)
-        netSalary = salary - (salary * (taxPercent / 100));
-    } else if (level === "Mid-Senior") {
-        salary = Math.floor(Math.random() * (1500 - 1000) + 1000);
-        netSalary = salary - (salary * (taxPercent / 100));
-    } else if (level === "Junior") {
-        salary = Math.floor(Math.random() * (1000 - 500) + 500);
-        netSalary = salary - (salary * (taxPercent / 100));
-    }
-    return netSalary;
-}
-
-let mainForm = document.getElementById("mainForm");
-mainForm.addEventListener('submit', addButtonListener);
-
-//Here we add a listerner to take the action that saved the values in the parameters
-function addButtonListener(event) {
-
-    event.preventDefault();
-    let fullName = event.target.fullNameInput.value;
-    let selectDepartment = event.target.selectDepartment.value;
-    let level = event.target.selectLevel.value;
-    let imgUrl = event.target.imgUrl.value;
-
-    // Check of the image did not insert by form use the default link
-    if (imgUrl == "") {
-        imgUrl = "https://i.pinimg.com/474x/f1/da/a7/f1daa70c9e3343cebd66ac2342d5be3f.jpg";
-    }
-
-    // mainForm.reset();
-
-    //Save the data in local Storage
-    localStorage.setItem("id", generateUniqueID());
-    localStorage.setItem("name", capitalizeFirstLetter(fullName));
-    localStorage.setItem("dep", selectDepartment);
-    localStorage.setItem("level", level);
-    localStorage.setItem("img", imgUrl);
-    localStorage.setItem("salary", salaryGenerator(level).toFixed(2));
-
-    let newEmp = new Employee(generateUniqueID(), capitalizeFirstLetter(fullName), selectDepartment, level, imgUrl, salaryGenerator(level))
-    newEmp.render();
-}
-
-//This function to make the input Name with first litter capital
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    allEmployee.push(this);
 }
 
 Employee.prototype.render = function () {
 
-    let Administration = document.getElementById("Administration");
-    let Marketing = document.getElementById("Development");
-    let marketingDep = document.getElementById("Marketing");
-    let Finance = document.getElementById("Finance");
     const employeeCard = document.createElement("div");
     const smallLine = document.createElement('hr');
     employeeCard.classList.add("employee");
@@ -96,7 +41,10 @@ Employee.prototype.render = function () {
 
     //(2) here we used the if stetment for each departement
     // Check the department to know in which div should we added
-
+    // let Administration = document.getElementById("Administration");
+    // let Marketing = document.getElementById("Development");
+    // let marketingDep = document.getElementById("Marketing");
+    // let Finance = document.getElementById("Finance");
     // if (this.empDep == "Administration") {
     //     administrationDep.append(employeeCard)
     // } else if (this.empDep == "Marketing") {
@@ -110,7 +58,6 @@ Employee.prototype.render = function () {
     employeeCard.appendChild(smallLine);
 };
 
-
 //Create employees instances was givin in the lab
 var employee1 = new Employee(1000, "Ghazi Samer", "Administration", "Senior", "Assets/Ghazi.jpg");
 var employee2 = new Employee(1001, "Lana Ali", "Finance", "Senior", "Assets/Lana.jpg");
@@ -120,7 +67,6 @@ var employee5 = new Employee(1004, "Omar Zaid", "Development", "Senior", "Assets
 var employee6 = new Employee(1005, "Rana Saleh", "Development", "Junior", "Assets/Rana.jpg");
 var employee7 = new Employee(1006, "Hadi Ahmad", "Finance", "Mid-Senior", "Assets/Hadi.jpg");
 
-
 // You will create a render prototype function to render each employee name with their salary in the home page.
 employee1.render();
 employee2.render();
@@ -129,17 +75,36 @@ employee4.render();
 employee5.render();
 employee6.render();
 employee7.render();
+// saveData(allEmployee);
 
-//Get the data from local Storage 
-const id = localStorage.getItem("id");
-const namee = localStorage.getItem("name");
-const department = localStorage.getItem("dep");
-const level = localStorage.getItem("level");
-const imgUrl = localStorage.getItem("img");
-const salary = parseFloat(localStorage.getItem("salary"));
+//Here we add a listerner to take the action that saved the values in the parameters
+let mainForm = document.getElementById("mainForm");
+mainForm.addEventListener('submit', addButtonListener);
+function addButtonListener(event) {
 
-let oldEmp = new Employee(id, namee, department, level, imgUrl, salary);
-oldEmp.render();
+    event.preventDefault();
+    let fullName = event.target.fullNameInput.value;
+    let selectDepartment = event.target.selectDepartment.value;
+    let level = event.target.selectLevel.value;
+    let imgUrl = event.target.imgUrl.value;
+
+    // Check of the image did not insert by form use the default link
+    if (imgUrl == "") {
+        imgUrl = "https://i.pinimg.com/474x/f1/da/a7/f1daa70c9e3343cebd66ac2342d5be3f.jpg";
+    }
+
+    let newEmp = new Employee(generateUniqueID(), capitalizeFirstLetter(fullName), selectDepartment, level, imgUrl, salaryGenerator(level))
+    
+    console.log("newEmp @ Listener =" + newEmp);
+    saveData(allEmployee);
+    
+    // mainForm.reset();
+}
+
+//This function to make the input Name with first litter capital
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 //Generate a unique ID for each employee
 function generateUniqueID() {
@@ -155,5 +120,51 @@ function showForm() {
         form.style.display = 'flex'; // Show the form
     } else {
         form.style.display = 'none'; // Hide the form
+    }
+}
+
+// Create a function for calculating the salary using the provided table by generating a random number between the
+// minimum and maximum salary for each level
+//calculating the random salary you should calculate the net salary where the tax percent is 7.5.
+function salaryGenerator(level) {
+    let salary = 0;
+    let netSalary = 0;
+    let taxPercent = 7.5;
+    if (level === "Senior") {
+        salary = Math.floor(Math.random() * (2000 - 1500) + 1500); // (Math.random()* (Max - Min) + min)
+        netSalary = salary - (salary * (taxPercent / 100));
+    } else if (level === "Mid-Senior") {
+        salary = Math.floor(Math.random() * (1500 - 1000) + 1000);
+        netSalary = salary - (salary * (taxPercent / 100));
+    } else if (level === "Junior") {
+        salary = Math.floor(Math.random() * (1000 - 500) + 500);
+        netSalary = salary - (salary * (taxPercent / 100));
+    }
+    return netSalary;
+}
+
+function saveData(data) {
+    let stringArr = JSON.stringify(data);
+    localStorage.setItem("employe", stringArr);
+}
+
+function getData() {
+    if (localStorage.length !== 0) {
+        let retriveArr = localStorage.getItem("employe");
+        objArr = JSON.parse(retriveArr);
+        console.log("after LS" + retriveArr);
+        console.log("after Parse", objArr);
+    }
+}
+
+getData();
+renderAll();
+
+function renderAll() {
+    console.log("renderAll : " + objArr.length);
+    if (localStorage.length !== 0) {
+        for (let i = 7; i < allEmployee.length; i++) {
+            allEmployee[i].render();
+        }
     }
 }
