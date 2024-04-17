@@ -68,13 +68,13 @@ var employee6 = new Employee(1005, "Rana Saleh", "Development", "Junior", "Asset
 var employee7 = new Employee(1006, "Hadi Ahmad", "Finance", "Mid-Senior", "Assets/Hadi.jpg");
 
 // You will create a render prototype function to render each employee name with their salary in the home page.
-employee1.render();
-employee2.render();
-employee3.render();
-employee4.render();
-employee5.render();
-employee6.render();
-employee7.render();
+// employee1.render();
+// employee2.render();
+// employee3.render();
+// employee4.render();
+// employee5.render();
+// employee6.render();
+// employee7.render();
 // saveData(allEmployee);
 
 //Here we add a listerner to take the action that saved the values in the parameters
@@ -157,14 +157,22 @@ function getData() {
     }
 }
 
-getData();
-renderAll();
-
 function renderAll() {
     console.log("renderAll : " + objArr.length);
-    if (localStorage.length !== 0) {
-        for (let i = 7; i < allEmployee.length; i++) {
-            allEmployee[i].render();
+    if (localStorage.getItem("employe")) {
+        let retrievedData = JSON.parse(localStorage.getItem("employe"));
+        for (let i = 6; i < retrievedData.length; i++) {
+            let { empId, fullName, empDep, empLevel, empImage } = retrievedData[i];
+            let emp = new Employee(empId, fullName, empDep, empLevel, empImage);
+            emp.render();
         }
     }
+
+    // if (localStorage.length !== 0) {
+    //     for (let i = 0; i < allEmployee.length; i++) {
+    //         allEmployee[i].render();
+    //     }
+    // }
 }
+getData();
+renderAll();
